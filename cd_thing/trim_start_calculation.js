@@ -6,4 +6,13 @@ const lengthOfPath = content("Transform Offsetter")
 
 const ballTrailLength = effect("Ball trail length")("Slider");
 
-(ballTrailLength / lengthOfPath) * 100;
+const percentageOffsetLeft =
+  (360 -
+    content("Transform Offsetter").content("Ball Path").content("Trim Paths 1")
+      .offset) /
+  360;
+const lengthLeft = percentageOffsetLeft * lengthOfPath;
+
+const lengthToUse = Math.min(lengthLeft, ballTrailLength);
+
+(lengthToUse / lengthOfPath) * 100;
