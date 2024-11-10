@@ -106,21 +106,25 @@ const sides = {
 const minLeftSideZ = sides.left.reduce((acc, point) => {
   return Math.min(acc, point[2]);
 }, Infinity);
-const isRightLast = sides.right.some((point) => point[2] < minLeftSideZ);
+const isRightFirst = sides.right.some((point) => point[2] < minLeftSideZ);
 
 const minTopSideZ = sides.top.reduce((acc, point) => {
   return Math.min(acc, point[2]);
 }, Infinity);
 
-const isBottomLast = sides.bottom.some((point) => point[2] < minTopSideZ);
+const isBottomFirst = sides.bottom.some((point) => point[2] < minTopSideZ);
 
 const minFrontSideZ = sides.front.reduce((acc, point) => {
   return Math.min(acc, point[2]);
 }, Infinity);
 
-const isBackLast = sides.back.some((point) => point[2] > minFrontSideZ);
+const isBackFirst = sides.back.some((point) => point[2] < minFrontSideZ);
 
-const output = [isBackLast ? 1 : 2, isRightLast ? 3 : 4, isBottomLast ? 5 : 6];
+const output = [
+  isBackFirst ? 2 : 1,
+  isRightFirst ? 4 : 3,
+  isBottomFirst ? 6 : 5,
+];
 
 // now we need to flatten the points to 2d
 
