@@ -1,6 +1,6 @@
 // this calculates the path for the front or back of the cube
 
-const isFront = effect("Visible Sides")("3D Point")[0] === 1;
+const isFront = effect("Fake 3D Cube")("Visible Sides")[0] === 1;
 const masterPoints = content("Master Path")
   .content("Master Path")
   .path.points();

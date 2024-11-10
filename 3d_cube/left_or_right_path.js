@@ -1,6 +1,6 @@
 // this calculates the path for the left or right of the cube
 
-const isLeft = effect("Visible Sides")("3D Point")[1] === 3;
+const isLeft = effect("Fake 3D Cube")("Visible Sides")[1] === 3;
 const masterPoints = content("Master Path")
   .content("Master Path")
   .path.points();

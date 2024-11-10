@@ -1,9 +1,11 @@
 // this expression calculates the points of all the sides of a 3d cube
 
-const radius = effect("Radius")("Slider");
-const verticalRotation = degreesToRadians(effect("Vertical Rotation")("Angle"));
+const radius = effect("Fake 3D Cube")("Radius");
+const verticalRotation = degreesToRadians(
+  effect("Fake 3D Cube")("Vertical Rotation")
+);
 const horizontalRotation = degreesToRadians(
-  effect("Horizontal Rotation")("Angle")
+  effect("Fake 3D Cube")("Horizontal Rotation")
 );
 
 const initialPathPointsXYZ = [

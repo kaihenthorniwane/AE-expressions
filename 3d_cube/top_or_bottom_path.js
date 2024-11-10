@@ -1,6 +1,6 @@
 // this calculates the path for the top or bottom of the cube
 
-const isTop = effect("Visible Sides")("3D Point")[2] === 5;
+const isTop = effect("Fake 3D Cube")("Visible Sides")[2] === 5;
 const masterPoints = content("Master Path")
   .content("Master Path")
   .path.points();
