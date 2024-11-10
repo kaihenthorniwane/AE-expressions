@@ -1,4 +1,4 @@
-// this expression calculates the path of a side for a 3d cube
+// this expression calculates the points of all the sides of a 3d cube
 
 const radius = effect("Radius")("Slider");
 const verticalRotation = degreesToRadians(effect("Vertical Rotation")("Angle"));
@@ -7,10 +7,14 @@ const horizontalRotation = degreesToRadians(
 );
 
 const initialPathPointsXYZ = [
-  [-radius, radius, radius],
-  [radius, radius, radius],
-  [radius, -radius, radius],
-  [-radius, -radius, radius],
+  [-radius, radius, radius], // top left, front
+  [radius, radius, radius], // top right, front
+  [radius, -radius, radius], // bottom right, front
+  [-radius, -radius, radius], // bottom left, front
+  [-radius, radius, -radius], // top left, back
+  [radius, radius, -radius], // top right, back
+  [radius, -radius, -radius], // bottom right, back
+  [-radius, -radius, -radius], // bottom left, back
 ];
 
 const rotatePathPointsAlongXAxisAKAVerticalRotation = initialPathPointsXYZ.map(
@@ -42,4 +46,12 @@ const flattenedToXY = rotatePathPointsAlongYAxisAKAHorizontalRotation.map(
   }
 );
 
-flattenedToXY;
+const inTangents = flattenedToXY.map((point) => {
+  return [0, 0];
+});
+
+const outTangents = flattenedToXY.map((point) => {
+  return [0, 0];
+});
+
+createPath(flattenedToXY, inTangents, outTangents, false);
