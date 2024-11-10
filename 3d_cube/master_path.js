@@ -29,7 +29,7 @@ const rotatePathPointsAlongXAxisAKAVerticalRotation = initialPathPointsXYZ.map(
   }
 );
 
-const masterXYZPoints = rotatePathPointsAlongXAxisAKAVerticalRotation.map(
+const masterPoints = rotatePathPointsAlongXAxisAKAVerticalRotation.map(
   (point) => {
     return [
       point[0] * Math.cos(horizontalRotation) +
@@ -65,42 +65,12 @@ const masterXYZPoints = rotatePathPointsAlongXAxisAKAVerticalRotation.map(
 // front and back cannot be seen at the same time
 // schema for output should be [1 | 2, 3 | 4, 5 | 6]
 const sides = {
-  left: [
-    masterXYZPoints[0],
-    masterXYZPoints[3],
-    masterXYZPoints[7],
-    masterXYZPoints[4],
-  ],
-  right: [
-    masterXYZPoints[1],
-    masterXYZPoints[2],
-    masterXYZPoints[6],
-    masterXYZPoints[5],
-  ],
-  top: [
-    masterXYZPoints[0],
-    masterXYZPoints[1],
-    masterXYZPoints[5],
-    masterXYZPoints[4],
-  ],
-  bottom: [
-    masterXYZPoints[2],
-    masterXYZPoints[3],
-    masterXYZPoints[7],
-    masterXYZPoints[6],
-  ],
-  front: [
-    masterXYZPoints[0],
-    masterXYZPoints[1],
-    masterXYZPoints[2],
-    masterXYZPoints[3],
-  ],
-  back: [
-    masterXYZPoints[4],
-    masterXYZPoints[5],
-    masterXYZPoints[6],
-    masterXYZPoints[7],
-  ],
+  left: [masterPoints[0], masterPoints[3], masterPoints[7], masterPoints[4]],
+  right: [masterPoints[1], masterPoints[2], masterPoints[6], masterPoints[5]],
+  top: [masterPoints[0], masterPoints[1], masterPoints[5], masterPoints[4]],
+  bottom: [masterPoints[2], masterPoints[3], masterPoints[7], masterPoints[6]],
+  front: [masterPoints[0], masterPoints[1], masterPoints[2], masterPoints[3]],
+  back: [masterPoints[4], masterPoints[5], masterPoints[6], masterPoints[7]],
 };
 
 const minLeftSideZ = sides.left.reduce((acc, point) => {
@@ -128,7 +98,7 @@ const output = [
 
 // now we need to flatten the points to 2d
 
-const flattenedToXY = masterXYZPoints.map((point) => {
+const flattenedToXY = masterPoints.map((point) => {
   return [point[0], point[1]];
 });
 
