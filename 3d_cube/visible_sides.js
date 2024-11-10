@@ -9,9 +9,9 @@
 // point 7 = bottom left, back
 
 // 1 = front
-// 2 = right
-// 3 = back
-// 4 = left
+// 2 = back
+// 3 = left
+// 4 = right
 // 5 = top
 // 6 = bottom
 
@@ -19,41 +19,12 @@ const masterPoints = content("Master Path")
   .content("Master Path")
   .path.points();
 
-const sides = [
-  {
-    sideId: 1, // front
-    points: [
-      masterPoints[0],
-      masterPoints[1],
-      masterPoints[2],
-      masterPoints[3],
-    ],
-  },
-  {
-    sideId: 2, // left
-    points: [
-      masterPoints[1],
-      masterPoints[4],
-      masterPoints[7],
-      masterPoints[3],
-    ],
-  },
-  {
-    sideId: 3, // back
-    points: [
-      masterPoints[5],
-      masterPoints[6],
-      masterPoints[7],
-      masterPoints[4],
-    ],
-  },
-  {
-    sideId: 4, // right
-    points: [
-      masterPoints[0],
-      masterPoints[3],
-      masterPoints[6],
-      masterPoints[2],
-    ],
-  },
-];
+// left and right cannot be seen at the same time
+// top and bottom cannot be seen at the same time
+// front and back cannot be seen at the same time
+// schema for output should be [1 | 2, 3 | 4, 5 | 6]
+// the first number will be the y value of the 9th point in the master path
+// the second number will be the y value of the 10th point in the master path
+// the third number will be the y value of the 11th point in the master path
+
+[masterPoints[8][1], masterPoints[9][1], masterPoints[10][1]];
