@@ -8,7 +8,7 @@ const ballTrailLength = effect("Bouncy Box")("Ball trail Length");
 
 const percentageOffsetLeft =
   (360 -
-    content("Transform Offsetter").content("Ball Path").content("Trim Paths 1")
+    content("Transform Offsetter").content("Ball Path").content("Trim paths")
       .offset) /
   360;
 const lengthLeft = percentageOffsetLeft * lengthOfPath;
