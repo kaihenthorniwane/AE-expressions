@@ -16,66 +16,61 @@ const widthOfBall = content("Transform Offsetter")
 const boundingBoxXFromCenter = boundingBox[0] / 2 - widthOfBall / 2;
 const boundingBoxYFromCenter = boundingBox[1] / 2 - widthOfBall / 2;
 
-const speed = 300;
-const checkIntervalInSec = 0.1;
-const secondsLayerExists = outPoint - inPoint;
-const distanceInterval = speed * checkIntervalInSec;
-const checksToMake = secondsLayerExists / checkIntervalInSec;
+function findNextCollision(position, direction) {
+  // Find distances to walls based on direction
+  const distToXWall =
+    direction[0] > 0
+      ? boundingBoxXFromCenter - position[0]
+      : -boundingBoxXFromCenter - position[0];
 
-// fyi, time is a variable that comes from After Effects
-const secondsToNow = Array.from(
-  { length: checksToMake },
-  (_, i) => i * checkIntervalInSec
-);
+  const distToYWall =
+    direction[1] > 0
+      ? boundingBoxYFromCenter - position[1]
+      : -boundingBoxYFromCenter - position[1];
+
+  // Calculate which wall we'll hit using similar triangles
+  const hitX =
+    Math.abs(distToXWall / direction[0]) < Math.abs(distToYWall / direction[1]);
+
+  // Return collision point and new direction
+  if (hitX) {
+    return {
+      point: [
+        position[0] + distToXWall,
+        position[1] + (distToXWall * direction[1]) / direction[0],
+      ],
+      newDirection: [-direction[0], direction[1]],
+    };
+  } else {
+    return {
+      point: [
+        position[0] + (distToYWall * direction[0]) / direction[1],
+        position[1] + distToYWall,
+      ],
+      newDirection: [direction[0], -direction[1]],
+    };
+  }
+}
+
 const initialPosition = [
-  Math.random() * boundingBox[0],
-  Math.random() * boundingBox[1],
+  Math.random() * boundingBox[0] - boundingBoxXFromCenter,
+  Math.random() * boundingBox[1] - boundingBoxYFromCenter,
 ];
 
-const bounceState = secondsToNow.reduce(
-  (acc, _) => {
-    let bounced = false;
-    // does the ball hit the left or right side of the bounding box?
-    if (
-      acc.currentPosition[0] + acc.currentDirection[0] * distanceInterval >
-        boundingBoxXFromCenter ||
-      acc.currentPosition[0] + acc.currentDirection[0] * distanceInterval <
-        -boundingBoxXFromCenter
-    ) {
-      acc.currentDirection[0] *= -1;
-      bounced = true;
-    }
+const NUM_COLLISIONS = 20;
+const bouncePoints = [initialPosition];
+let currentPosition = initialPosition;
+let currentDirection = [1, 1];
 
-    // does the ball hit the top or bottom of the bounding box?
-    if (
-      acc.currentPosition[1] + acc.currentDirection[1] * distanceInterval >
-        boundingBoxYFromCenter ||
-      acc.currentPosition[1] + acc.currentDirection[1] * distanceInterval <
-        -boundingBoxYFromCenter
-    ) {
-      acc.currentDirection[1] *= -1;
-      bounced = true;
-    }
+for (let i = 0; i < NUM_COLLISIONS; i++) {
+  const collision = findNextCollision(currentPosition, currentDirection);
+  bouncePoints.push(collision.point);
+  currentPosition = collision.point;
+  currentDirection = collision.newDirection;
+}
 
-    if (bounced) {
-      acc.bouncePoints.push([...acc.currentPosition]);
-    }
-
-    // update the ball's position
-    acc.currentPosition[0] += acc.currentDirection[0] * distanceInterval;
-    acc.currentPosition[1] += acc.currentDirection[1] * distanceInterval;
-
-    return acc;
-  },
-  {
-    currentPosition: initialPosition,
-    currentDirection: [1, 1],
-    bouncePoints: [],
-  }
-);
-
-const numPoints = bounceState.bouncePoints.length;
+const numPoints = bouncePoints.length;
 const inTangents = Array.from({ length: numPoints }, () => [0, 0]);
 const outTangents = Array.from({ length: numPoints }, () => [0, 0]);
 
-createPath(bounceState.bouncePoints, inTangents, outTangents, false);
+createPath(bouncePoints, inTangents, outTangents, false);
