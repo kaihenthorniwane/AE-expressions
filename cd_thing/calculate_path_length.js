@@ -6,7 +6,7 @@ const srcPath = content("Transform Offsetter")
   .content("Ball Path")
   .content("Path 1").path;
 const points = srcPath.points();
-const ballTrailLength = effect("Ball trail length")("Slider");
+const ballTrailLength = effect("Bouncy Box")("Ball trail Length");
 
 const lengthOfPath = points.reduce((acc, point, index) => {
   if (index === 0) {

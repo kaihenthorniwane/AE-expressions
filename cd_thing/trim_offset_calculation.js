@@ -4,6 +4,7 @@ const lengthOfPath = content("Transform Offsetter")
   .content("Ball Path")
   .content("Calculate Path Length").roundness;
 
-const speed = effect("Ball Speed")("Slider");
+const timeLayerExists = outPoint - inPoint;
+const speed = 1 / timeLayerExists;
 
-(speed / lengthOfPath) * time * 360;
+speed * time * 360;

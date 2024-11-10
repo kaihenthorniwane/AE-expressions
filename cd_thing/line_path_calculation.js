@@ -3,7 +3,7 @@
 // this forces the expression to only run once
 posterizeTime(0);
 
-seedRandom(1, true);
+seedRandom(effect("Bouncy Box")("Random Seed"), true);
 
 const boundingBox = content("Transform Offsetter")
   .content("Rectangle 1")
@@ -13,10 +13,16 @@ const widthOfBall = content("Transform Offsetter")
   .content("Ball Path")
   .content("Stroke 1").strokeWidth;
 
-const NUM_COLLISIONS = effect("Collisions")("Slider");
+const wallWidth = content("Transform Offsetter")
+  .content("Rectangle 1")
+  .content("Stroke 1").strokeWidth;
 
-const boundingBoxXFromCenter = boundingBox[0] / 2 - widthOfBall / 2;
-const boundingBoxYFromCenter = boundingBox[1] / 2 - widthOfBall / 2;
+const NUM_COLLISIONS = effect("Bouncy Box")("Collissions");
+
+const boundingBoxXFromCenter =
+  boundingBox[0] / 2 - widthOfBall / 2 - wallWidth / 2;
+const boundingBoxYFromCenter =
+  boundingBox[1] / 2 - widthOfBall / 2 - wallWidth / 2;
 
 function findNextCollision(position, direction) {
   // Find distances to walls based on direction
@@ -41,7 +47,7 @@ function findNextCollision(position, direction) {
         position[0] + distToXWall,
         position[1] + (distToXWall * direction[1]) / direction[0],
       ],
-      newDirection: [-direction[0], direction[1]],
+      newDirection: [-direction[0] + (0.5 - Math.random()) / 2, direction[1]],
     };
   } else {
     return {
@@ -49,7 +55,7 @@ function findNextCollision(position, direction) {
         position[0] + (distToYWall * direction[0]) / direction[1],
         position[1] + distToYWall,
       ],
-      newDirection: [direction[0], -direction[1]],
+      newDirection: [direction[0], -direction[1] + (0.5 - Math.random()) / 2],
     };
   }
 }

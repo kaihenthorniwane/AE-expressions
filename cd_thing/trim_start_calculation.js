@@ -4,7 +4,7 @@ const lengthOfPath = content("Transform Offsetter")
   .content("Ball Path")
   .content("Calculate Path Length").roundness;
 
-const ballTrailLength = effect("Ball trail length")("Slider");
+const ballTrailLength = effect("Bouncy Box")("Ball trail Length");
 
 const percentageOffsetLeft =
   (360 -
