@@ -47,7 +47,7 @@ function findNextCollision(position, direction) {
         position[0] + distToXWall,
         position[1] + (distToXWall * direction[1]) / direction[0],
       ],
-      newDirection: [-direction[0] + (0.5 - Math.random()) / 2, direction[1]],
+      newDirection: [-direction[0] + (0.5 - Math.random()), direction[1]],
     };
   } else {
     return {
@@ -55,7 +55,7 @@ function findNextCollision(position, direction) {
         position[0] + (distToYWall * direction[0]) / direction[1],
         position[1] + distToYWall,
       ],
-      newDirection: [direction[0], -direction[1] + (0.5 - Math.random()) / 2],
+      newDirection: [direction[0], -direction[1] + (0.5 - Math.random())],
     };
   }
 }
