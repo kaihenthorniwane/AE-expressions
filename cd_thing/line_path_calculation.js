@@ -13,6 +13,8 @@ const widthOfBall = content("Transform Offsetter")
   .content("Ball Path")
   .content("Stroke 1").strokeWidth;
 
+const NUM_COLLISIONS = effect("Collisions")("Slider");
+
 const boundingBoxXFromCenter = boundingBox[0] / 2 - widthOfBall / 2;
 const boundingBoxYFromCenter = boundingBox[1] / 2 - widthOfBall / 2;
 
@@ -57,7 +59,6 @@ const initialPosition = [
   Math.random() * boundingBox[1] - boundingBoxYFromCenter,
 ];
 
-const NUM_COLLISIONS = 20;
 const bouncePoints = [initialPosition];
 let currentPosition = initialPosition;
 let currentDirection = [1, 1];
