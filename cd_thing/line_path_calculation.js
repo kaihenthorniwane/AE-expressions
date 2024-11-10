@@ -9,13 +9,18 @@ const boundingBox = content("Transform Offsetter")
   .content("Rectangle 1")
   .content("Rectangle Path 1").size;
 
-const boundingBoxXFromCenter = boundingBox[0] / 2;
-const boundingBoxYFromCenter = boundingBox[1] / 2;
+const widthOfBall = content("Transform Offsetter")
+  .content("Ball Path")
+  .content("Stroke 1").strokeWidth;
+
+const boundingBoxXFromCenter = boundingBox[0] / 2 - widthOfBall / 2;
+const boundingBoxYFromCenter = boundingBox[1] / 2 - widthOfBall / 2;
 
 const speed = 300;
 const checkIntervalInSec = 0.1;
+const secondsLayerExists = outPoint - inPoint;
 const distanceInterval = speed * checkIntervalInSec;
-const checksToMake = 15 / checkIntervalInSec;
+const checksToMake = secondsLayerExists / checkIntervalInSec;
 
 // fyi, time is a variable that comes from After Effects
 const secondsToNow = Array.from(
