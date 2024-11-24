@@ -1,7 +1,7 @@
 const effects = thisLayer("ADBE Effect Parade");
 const effectsArray = Array.from({ length: effects.numProperties }).reduce(
   (acc, _, i) => {
-    acc.push(effects(i + 1).name);
+    acc.push(effects(i + 1)(1));
     return acc;
   },
   []
@@ -37,8 +37,7 @@ const generateLayerPoints = (layer) => {
 };
 
 const layerPoints = effectsArray
-  .map((_, i) => {
-    const layer = thisComp.layer(i + 1);
+  .map((layer) => {
     return generateLayerPoints(layer);
   })
   .flat();
